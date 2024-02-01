@@ -14,16 +14,11 @@ if (major < 20) {
 require('dotenv').config({ path: '.env' });
 require('dotenv').config({ path: '.env.local' });
 
-mongoose.connect(process.env.DATABASE);
+// Use the connection string from the environment variable
+// const mongoURI = process.env.DATABASE;
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-
-mongoose.connection.on('error', (error) => {
-  console.log(
-    `1. 🔥 Common Error caused issue → : check your .env file first and add your mongodb url`
-  );
-  console.error(`2. 🚫 Error → : ${error.message}`);
-});
+mongoose.connect('mongodb+srv://aryan:aryan7786@atlascluster.hgq93we.mongodb.net/?retryWrites=true&w=majority').then(()=>{
+    console.log("db connected")}) .catch((err)=>console.log("no connected",err))
 
 const modelsFiles = globSync('./src/models/**/*.js');
 
